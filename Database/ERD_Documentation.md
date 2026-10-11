@@ -1,33 +1,33 @@
 # Database Documentation & ERD
 
-## Entity Relationship Diagram (ERD)
+## Entity Relationship Diagram
 
 ```mermaid
 erDiagram
-    subjects ||--o{ questions : "contains"
-    games ||--o{ questions : "includes"
-    users ||--o{ player_progress : "tracks"
-    games ||--o{ player_progress : "has_progress"
+    SUBJECTS ||--o{ QUESTIONS : contains
+    GAMES ||--o{ QUESTIONS : includes
+    USERS ||--o{ PLAYER_PROGRESS : tracks
+    GAMES ||--o{ PLAYER_PROGRESS : has_progress
 
-    subjects {
-        uuid id PK
+    SUBJECTS {
+        uuid id
         string name
         text description
         timestamp created_at
     }
 
-    games {
-        uuid id PK
+    GAMES {
+        uuid id
         string title
         string game_type
         text description
         timestamp created_at
     }
 
-    questions {
-        uuid id PK
-        uuid game_id FK
-        uuid subject_id FK
+    QUESTIONS {
+        uuid id
+        uuid game_id
+        uuid subject_id
         text question_text
         jsonb options
         string correct_answer
@@ -37,17 +37,17 @@ erDiagram
         timestamp created_at
     }
 
-    users {
-        uuid id PK
+    USERS {
+        uuid id
         string username
         string email
         timestamp created_at
     }
 
-    player_progress {
-        uuid id PK
-        uuid user_id FK
-        uuid game_id FK
+    PLAYER_PROGRESS {
+        uuid id
+        uuid user_id
+        uuid game_id
         int score
         boolean is_completed
         timestamp updated_at
