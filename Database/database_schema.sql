@@ -52,6 +52,21 @@ CREATE TABLE IF NOT EXISTS player_progress (
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+
+-- Player Answers Table (for tracking individual question responses)
+CREATE TABLE IF NOT EXISTS public.player_answers (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id UUID NOT NULL REFERENCES public.users(id) ON DELETE CASCADE,
+    question_id UUID NOT NULL REFERENCES public.questions(id) ON DELETE CASCADE,
+    answer TEXT NOT NULL,
+    is_correct BOOLEAN NOT NULL,
+    points_earned INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT unique_player_question UNIQUE (user_id, question_id)
+);
+
+
 -- ========================================================
 -- Sample Data Insertion
 -- ========================================================
